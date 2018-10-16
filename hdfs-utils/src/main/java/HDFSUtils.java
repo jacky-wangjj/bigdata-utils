@@ -196,6 +196,27 @@ public class HDFSUtils {
         FileSystem hdfs = FileSystem.get(hdfsUri, conf);
         return hdfs;
     }
+    public void testEZK() throws IOException {
+        String hdfsUri = "hdfs://10.110.181.6:8020";
+        Configuration conf = new Configuration();
+        // set FileSystem URI
+        conf.set("fs.defaultFS", hdfsUri);
+        conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
+        conf.set("fs.file.impl", "org.apache.hadoop.fs.LocalFileSystem");
+        conf.set("dfs.encryption.key.provider.uri", "kms://http@node1.leap.com:16000/kms");
+
+        URI uri = URI.create(hdfsUri);
+        try {
+            FileSystem hdfs1 = FileSystem.get(uri, conf, "p46_u29_ezk_1");
+            hdfs1.copyFromLocalFile(new Path("D:/core-site.xml"), new Path("/user/p46_u29_ezk_1/EncryptZone"));
+            hdfs1.close();
+            FileSystem hdfs2 = FileSystem.get(uri, conf, "p46_u31_ezk_2");
+            hdfs2.copyFromLocalFile(new Path("D:/core-site.xml"), new Path("/user/p46_u31_ezk_2/EncryptZone"));
+            hdfs2.close();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) throws IOException {
         String hdfsUri = "hdfs://10.110.181.10:8020";
         String localFilePath = "D:/core-site.xml";
@@ -206,6 +227,8 @@ public class HDFSUtils {
         HDFSUtils hdfsUtils = new HDFSUtils();
         Configuration conf = hdfsUtils.getConf(hdfsUri);
 
+        // 测试加密区内写文件
+        hdfsUtils.testEZK();
         //检测路径是否存在
         if (hdfsUtils.exits(conf, newDir)) {
             System.out.println(newDir+" exits!");
@@ -250,7 +273,6 @@ public class HDFSUtils {
         } else {
             logger.info(newDir + "删除失败");
         }
-
         /*URI uri = URI.create(hdfsUri);
         FileSystem hdfs = hdfsUtils.getFileSystem(uri, conf);
         //检测路径是否存在

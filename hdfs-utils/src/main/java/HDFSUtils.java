@@ -1,11 +1,13 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.IOUtils;
+import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.security.PrivilegedExceptionAction;
 import java.util.logging.Logger;
 
 /**
@@ -197,22 +199,55 @@ public class HDFSUtils {
         return hdfs;
     }
     public void testEZK() throws IOException {
+        final String ezk1 = "p46_u29_ezk_1";
+        final String ezk2 = "p46_u31_ezk_2";
+        final Path src = new Path("D:/core-site.xml");
+        final Path dest1 = new Path("/user/p46_u29_ezk_1/EncryptZone");
+        final Path dest2 = new Path("/user/p46_u31_ezk_2/EncryptZone");
         String hdfsUri = "hdfs://10.110.181.6:8020";
-        Configuration conf = new Configuration();
+        final Configuration conf = new Configuration();
         // set FileSystem URI
         conf.set("fs.defaultFS", hdfsUri);
         conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
         conf.set("fs.file.impl", "org.apache.hadoop.fs.LocalFileSystem");
         conf.set("dfs.encryption.key.provider.uri", "kms://http@node1.leap.com:16000/kms");
 
-        URI uri = URI.create(hdfsUri);
+        final URI uri = URI.create(hdfsUri);
         try {
-            FileSystem hdfs1 = FileSystem.get(uri, conf, "p46_u29_ezk_1");
-            hdfs1.copyFromLocalFile(new Path("D:/core-site.xml"), new Path("/user/p46_u29_ezk_1/EncryptZone"));
+            //使用UGI.doAs
+            UserGroupInformation ugi1 = UserGroupInformation.createRemoteUser("hdfs");
+//            UserGroupInformation ugi1 = UserGroupInformation.createRemoteUser(ezk1);
+            ugi1.doAs(new PrivilegedExceptionAction<Object>() {
+                public Object run() throws Exception {
+                    FileSystem hdfs1 = FileSystem.get(uri, conf, ezk1);
+                    try {
+                        hdfs1.copyFromLocalFile(src, dest1);
+                        return null;
+                    } finally {
+                        hdfs1.close();
+                    }
+                }
+            });
+            UserGroupInformation ugi2 = UserGroupInformation.createRemoteUser("hdfs");
+//            UserGroupInformation ugi2 = UserGroupInformation.createRemoteUser(ezk2);
+            ugi2.doAs(new PrivilegedExceptionAction<Object>() {
+                        public Object run() throws Exception {
+                            FileSystem hdfs2 = FileSystem.get(uri, conf, ezk2);
+                            try {
+                                hdfs2.copyFromLocalFile(src, dest2);
+                                return null;
+                            } finally {
+                                hdfs2.close();
+                            }
+                }
+            });
+            // 不使用UGI.doAs
+            /*FileSystem hdfs1 = FileSystem.get(uri, conf, ezk1);
+            hdfs1.copyFromLocalFile(src, dest1);
             hdfs1.close();
-            FileSystem hdfs2 = FileSystem.get(uri, conf, "p46_u31_ezk_2");
-            hdfs2.copyFromLocalFile(new Path("D:/core-site.xml"), new Path("/user/p46_u31_ezk_2/EncryptZone"));
-            hdfs2.close();
+            FileSystem hdfs2 = FileSystem.get(uri, conf, ezk2);
+            hdfs2.copyFromLocalFile(src, dest2);
+            hdfs2.close();*/
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -230,7 +265,7 @@ public class HDFSUtils {
         // 测试加密区内写文件
         hdfsUtils.testEZK();
         //检测路径是否存在
-        if (hdfsUtils.exits(conf, newDir)) {
+/*        if (hdfsUtils.exits(conf, newDir)) {
             System.out.println(newDir+" exits!");
         } else {
             //创建目录
@@ -272,7 +307,7 @@ public class HDFSUtils {
             logger.info(newDir + "已被删除");
         } else {
             logger.info(newDir + "删除失败");
-        }
+        }*/
         /*URI uri = URI.create(hdfsUri);
         FileSystem hdfs = hdfsUtils.getFileSystem(uri, conf);
         //检测路径是否存在

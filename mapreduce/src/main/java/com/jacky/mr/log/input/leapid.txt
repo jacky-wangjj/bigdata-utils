@@ -1,0 +1,782 @@
+2019-07-03 00:00:00,000 (1666435394 ms) INFO  [scanScheduler-4] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:00:29,000 (1666464394 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 00:00:29,002 (1666464396 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 00:00:29,002 (1666464396 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 00:00:29,002 (1666464396 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 00:00:29,002 (1666464396 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562083229002   command:hdfs getconf -nnRpcAddresses
+2019-07-03 00:00:29,002 (1666464396 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:00:30,081 (1666465475 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562083230081 delta:1079
+2019-07-03 00:00:30,082 (1666465476 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1080ms===
+2019-07-03 00:00:30,082 (1666465476 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562083230082   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 00:00:30,082 (1666465476 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:00:31,132 (1666466526 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562083231132 delta:1050
+2019-07-03 00:00:31,132 (1666466526 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1050ms===
+2019-07-03 00:00:31,132 (1666466526 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 00:00:31,134 (1666466528 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 00:00:31,137 (1666466531 ms) ERROR [scanScheduler-3] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 00:00:31,138 (1666466532 ms) ERROR [scanScheduler-3] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 00:00:31,138 (1666466532 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 4ms
+2019-07-03 00:00:31,138 (1666466532 ms) ERROR [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 00:00:31,138 (1666466532 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2136ms
+2019-07-03 00:05:00,000 (1666735394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:10:00,000 (1667035394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:10:29,001 (1667064395 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 00:10:29,001 (1667064395 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 00:10:29,001 (1667064395 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 00:10:29,001 (1667064395 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 00:10:29,001 (1667064395 ms) DEBUG [scanScheduler-5] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562083829001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 00:10:29,001 (1667064395 ms) DEBUG [scanScheduler-5] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:10:30,081 (1667065475 ms) DEBUG [scanScheduler-5] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562083830081 delta:1080
+2019-07-03 00:10:30,081 (1667065475 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1080ms===
+2019-07-03 00:10:30,081 (1667065475 ms) DEBUG [scanScheduler-5] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562083830081   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 00:10:30,081 (1667065475 ms) DEBUG [scanScheduler-5] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:10:31,120 (1667066514 ms) DEBUG [scanScheduler-5] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562083831120 delta:1039
+2019-07-03 00:10:31,120 (1667066514 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1039ms===
+2019-07-03 00:10:31,120 (1667066514 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 00:10:31,122 (1667066516 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 00:10:31,124 (1667066518 ms) ERROR [scanScheduler-5] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 00:10:31,125 (1667066519 ms) ERROR [scanScheduler-5] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 00:10:31,125 (1667066519 ms) DEBUG [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 3ms
+2019-07-03 00:10:31,125 (1667066519 ms) ERROR [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 00:10:31,125 (1667066519 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2124ms
+2019-07-03 00:15:00,000 (1667335394 ms) INFO  [scanScheduler-1] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:20:00,000 (1667635394 ms) INFO  [scanScheduler-1] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:20:29,000 (1667664394 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 00:20:29,001 (1667664395 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 00:20:29,001 (1667664395 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 00:20:29,001 (1667664395 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 00:20:29,001 (1667664395 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562084429001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 00:20:29,001 (1667664395 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:20:30,070 (1667665464 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562084430070 delta:1069
+2019-07-03 00:20:30,071 (1667665465 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1070ms===
+2019-07-03 00:20:30,071 (1667665465 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562084430071   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 00:20:30,071 (1667665465 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:20:31,120 (1667666514 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562084431120 delta:1049
+2019-07-03 00:20:31,120 (1667666514 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1049ms===
+2019-07-03 00:20:31,120 (1667666514 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 00:20:31,122 (1667666516 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 00:20:31,125 (1667666519 ms) ERROR [scanScheduler-2] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 00:20:31,125 (1667666519 ms) ERROR [scanScheduler-2] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 00:20:31,125 (1667666519 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 3ms
+2019-07-03 00:20:31,125 (1667666519 ms) ERROR [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 00:20:31,126 (1667666520 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2125ms
+2019-07-03 00:25:00,001 (1667935395 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:30:00,000 (1668235394 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:30:29,000 (1668264394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 00:30:29,000 (1668264394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 00:30:29,000 (1668264394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 00:30:29,001 (1668264395 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 00:30:29,001 (1668264395 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562085029001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 00:30:29,001 (1668264395 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:30:30,071 (1668265465 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562085030071 delta:1070
+2019-07-03 00:30:30,071 (1668265465 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1070ms===
+2019-07-03 00:30:30,071 (1668265465 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562085030071   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 00:30:30,071 (1668265465 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:30:31,121 (1668266515 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562085031121 delta:1050
+2019-07-03 00:30:31,121 (1668266515 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1050ms===
+2019-07-03 00:30:31,122 (1668266516 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 00:30:31,123 (1668266517 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 00:30:31,126 (1668266520 ms) ERROR [scanScheduler-6] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 00:30:31,127 (1668266521 ms) ERROR [scanScheduler-6] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 00:30:31,127 (1668266521 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 4ms
+2019-07-03 00:30:31,127 (1668266521 ms) ERROR [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 00:30:31,127 (1668266521 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2127ms
+2019-07-03 00:35:00,000 (1668535394 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:40:00,000 (1668835394 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:40:29,001 (1668864395 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 00:40:29,001 (1668864395 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 00:40:29,001 (1668864395 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 00:40:29,001 (1668864395 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 00:40:29,001 (1668864395 ms) DEBUG [scanScheduler-10] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562085629001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 00:40:29,001 (1668864395 ms) DEBUG [scanScheduler-10] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:40:30,040 (1668865434 ms) DEBUG [scanScheduler-10] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562085630040 delta:1039
+2019-07-03 00:40:30,041 (1668865435 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1040ms===
+2019-07-03 00:40:30,041 (1668865435 ms) DEBUG [scanScheduler-10] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562085630041   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 00:40:30,041 (1668865435 ms) DEBUG [scanScheduler-10] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:40:31,080 (1668866474 ms) DEBUG [scanScheduler-10] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562085631080 delta:1039
+2019-07-03 00:40:31,080 (1668866474 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1039ms===
+2019-07-03 00:40:31,081 (1668866475 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 00:40:31,082 (1668866476 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 00:40:31,085 (1668866479 ms) ERROR [scanScheduler-10] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 00:40:31,086 (1668866480 ms) ERROR [scanScheduler-10] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 00:40:31,086 (1668866480 ms) DEBUG [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 4ms
+2019-07-03 00:40:31,086 (1668866480 ms) ERROR [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 00:40:31,087 (1668866481 ms) INFO  [scanScheduler-10] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2086ms
+2019-07-03 00:45:00,000 (1669135394 ms) INFO  [scanScheduler-9] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:50:00,000 (1669435394 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 00:50:29,000 (1669464394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 00:50:29,000 (1669464394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 00:50:29,000 (1669464394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 00:50:29,000 (1669464394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 00:50:29,000 (1669464394 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562086229000   command:hdfs getconf -nnRpcAddresses
+2019-07-03 00:50:29,001 (1669464395 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:50:30,040 (1669465434 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562086230040 delta:1040
+2019-07-03 00:50:30,040 (1669465434 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1040ms===
+2019-07-03 00:50:30,041 (1669465435 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562086230041   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 00:50:30,041 (1669465435 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 00:50:31,059 (1669466453 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562086231059 delta:1018
+2019-07-03 00:50:31,060 (1669466454 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1019ms===
+2019-07-03 00:50:31,060 (1669466454 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 00:50:31,061 (1669466455 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 00:50:31,063 (1669466457 ms) ERROR [scanScheduler-6] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 00:50:31,063 (1669466457 ms) ERROR [scanScheduler-6] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 00:50:31,063 (1669466457 ms) DEBUG [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 2ms
+2019-07-03 00:50:31,063 (1669466457 ms) ERROR [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 00:50:31,063 (1669466457 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2063ms
+2019-07-03 00:55:00,000 (1669735394 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:00:00,001 (1670035395 ms) INFO  [scanScheduler-4] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:00:29,001 (1670064395 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 01:00:29,001 (1670064395 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 01:00:29,001 (1670064395 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 01:00:29,001 (1670064395 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 01:00:29,001 (1670064395 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562086829001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 01:00:29,001 (1670064395 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 01:00:30,081 (1670065475 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562086830081 delta:1080
+2019-07-03 01:00:30,081 (1670065475 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1080ms===
+2019-07-03 01:00:30,081 (1670065475 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562086830081   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 01:00:30,081 (1670065475 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 01:00:31,120 (1670066514 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562086831120 delta:1039
+2019-07-03 01:00:31,120 (1670066514 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1039ms===
+2019-07-03 01:00:31,120 (1670066514 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 01:00:31,121 (1670066515 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 01:00:31,124 (1670066518 ms) ERROR [scanScheduler-2] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 01:00:31,124 (1670066518 ms) ERROR [scanScheduler-2] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 01:00:31,124 (1670066518 ms) DEBUG [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 2ms
+2019-07-03 01:00:31,124 (1670066518 ms) ERROR [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 01:00:31,124 (1670066518 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2123ms
+2019-07-03 01:05:00,000 (1670335394 ms) INFO  [scanScheduler-5] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:10:00,001 (1670635395 ms) INFO  [scanScheduler-8] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:10:29,001 (1670664395 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 01:10:29,001 (1670664395 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 01:10:29,001 (1670664395 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 01:10:29,001 (1670664395 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 01:10:29,001 (1670664395 ms) DEBUG [scanScheduler-7] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562087429001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 01:10:29,001 (1670664395 ms) DEBUG [scanScheduler-7] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 01:10:30,080 (1670665474 ms) DEBUG [scanScheduler-7] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562087430080 delta:1079
+2019-07-03 01:10:30,080 (1670665474 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1079ms===
+2019-07-03 01:10:30,080 (1670665474 ms) DEBUG [scanScheduler-7] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562087430080   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 01:10:30,081 (1670665475 ms) DEBUG [scanScheduler-7] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 01:10:31,129 (1670666523 ms) DEBUG [scanScheduler-7] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562087431129 delta:1049
+2019-07-03 01:10:31,129 (1670666523 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1049ms===
+2019-07-03 01:10:31,130 (1670666524 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 01:10:31,131 (1670666525 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 01:10:31,135 (1670666529 ms) ERROR [scanScheduler-7] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 01:10:31,136 (1670666530 ms) ERROR [scanScheduler-7] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 01:10:31,136 (1670666530 ms) DEBUG [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 5ms
+2019-07-03 01:10:31,136 (1670666530 ms) ERROR [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 01:10:31,136 (1670666530 ms) INFO  [scanScheduler-7] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2135ms
+2019-07-03 01:15:00,000 (1670935394 ms) INFO  [scanScheduler-6] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:20:00,001 (1671235395 ms) INFO  [scanScheduler-1] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:20:29,000 (1671264394 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 01:20:29,001 (1671264395 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 01:20:29,001 (1671264395 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 01:20:29,001 (1671264395 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 01:20:29,001 (1671264395 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562088029001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 01:20:29,001 (1671264395 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 01:20:30,070 (1671265464 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562088030070 delta:1069
+2019-07-03 01:20:30,071 (1671265465 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -nnRpcAddresses
+result: ShellOut{stdMsg='node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1070ms===
+2019-07-03 01:20:30,071 (1671265465 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562088030071   command:hdfs getconf -confKey fs.defaultFS
+2019-07-03 01:20:30,071 (1671265465 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 01:20:31,200 (1671266594 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562088031200 delta:1129
+2019-07-03 01:20:31,201 (1671266595 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.service.ShellService : ===[CMD]===>
+host: node16.sleap.com
+command: hdfs getconf -confKey fs.defaultFS
+result: ShellOut{stdMsg='hdfs://node16.sleap.com:8020
+', errMsg='', retCode=0}
+===[CMD]1130ms===
+2019-07-03 01:20:31,201 (1671266595 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask updateAllGroupPrivileges
+2019-07-03 01:20:31,202 (1671266596 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] privilege
+2019-07-03 01:20:31,205 (1671266599 ms) ERROR [scanScheduler-3] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : Hive connection failed
+java.sql.SQLException: Could not open client transport with JDBC Uri: jdbc:hive2://node16.sleap.com:10000/: null
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:230)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:167)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:91)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.thrift.transport.TTransportException
+	at org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)
+	at org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)
+	at org.apache.thrift.transport.TSaslTransport.receiveSaslMessage(TSaslTransport.java:178)
+	at org.apache.thrift.transport.TSaslTransport.open(TSaslTransport.java:307)
+	at org.apache.thrift.transport.TSaslClientTransport.open(TSaslClientTransport.java:37)
+	at org.apache.hive.jdbc.HiveConnection.openTransport(HiveConnection.java:202)
+	... 24 more
+2019-07-03 01:20:31,206 (1671266600 ms) ERROR [scanScheduler-3] com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper : getConnection()=null
+2019-07-03 01:20:31,206 (1671266600 ms) DEBUG [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : handle dftRole[p46_g44_r0] completed in 4ms
+2019-07-03 01:20:31,206 (1671266600 ms) ERROR [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : checkAllDefaultRoles cause exception:
+com.lenovo.leapid.common.exception.LeapidException: Hive connection failed
+	at com.lenovo.leapid.admin.dao.hive.HiveDatabaseHelper.getConnection(HiveDatabaseHelper.java:98)
+	at com.lenovo.leapid.admin.dao.sentry.SentrySQLHelper.query(SentrySQLHelper.java:57)
+	at com.lenovo.leapid.admin.dao.SentryDao.queryURIsByRole(SentryDao.java:131)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateDftRolePrivileges(CheckHATask.java:142)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.updateAllGroupPrivileges(CheckHATask.java:107)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.checkAllDefaultRoles(CheckHATask.java:76)
+	at com.lenovo.leapid.admin.task.sentry.CheckHATask.run(CheckHATask.java:53)
+	at sun.reflect.GeneratedMethodAccessor73.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:81)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+2019-07-03 01:20:31,206 (1671266600 ms) INFO  [scanScheduler-3] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask completed in 2205ms
+2019-07-03 01:25:00,000 (1671535394 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:30:00,000 (1671835394 ms) INFO  [scanScheduler-2] com.lenovo.leapid.admin.task.properties.SitePropertiesTask : ===>Schedule SitePropertiesTask start...
+2019-07-03 01:30:29,001 (1671864395 ms) INFO  [scanScheduler-8] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask begin...
+2019-07-03 01:30:29,001 (1671864395 ms) INFO  [scanScheduler-8] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkHdfsRootUri...
+2019-07-03 01:30:29,001 (1671864395 ms) INFO  [scanScheduler-8] com.lenovo.leapid.admin.task.sentry.CheckHATask : no need initHdfsRootURI because of hdfsAccessModelLocal=false
+2019-07-03 01:30:29,001 (1671864395 ms) INFO  [scanScheduler-8] com.lenovo.leapid.admin.task.sentry.CheckHATask : ===>CheckHATask checkAllDefaultRoles...
+2019-07-03 01:30:29,001 (1671864395 ms) DEBUG [scanScheduler-8] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-start: t-1562088629001   command:hdfs getconf -nnRpcAddresses
+2019-07-03 01:30:29,001 (1671864395 ms) DEBUG [scanScheduler-8] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-getSession: hc-1160662049,host-node16.sleap.com
+2019-07-03 01:30:30,081 (1671865475 ms) DEBUG [scanScheduler-8] com.lenovo.leapid.admin.utility.ShellUtils : ---exec-end: t-1562088630081 delta:1080

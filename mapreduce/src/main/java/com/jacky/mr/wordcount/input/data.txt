@@ -1,0 +1,4 @@
+hadoop spark hive
+mapreduce hadoop hdfs
+spark hive hadoop
+mapreduce mapreduce

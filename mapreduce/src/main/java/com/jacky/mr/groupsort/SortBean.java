@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author wangjj17@lenovo.com
  * @date 2019/7/4
  */
-public class SortBean implements Writable, WritableComparable {
+public class SortBean implements WritableComparable<SortBean> {
     private String id;
     private String name;
     private String mark;
@@ -90,15 +90,14 @@ public class SortBean implements Writable, WritableComparable {
      * @date 2019/7/4
      */
     @Override
-    public int compareTo(Object o) {
-        SortBean sortBean = (SortBean) o;
+    public int compareTo(SortBean o) {
         int result;
-        if (this.mark.compareTo(sortBean.getMark()) > 0) {
+        if (this.mark.compareTo(o.getMark()) > 0) {
             result = 1;
-        } else if (this.mark.compareTo(sortBean.getMark()) < 0) {
+        } else if (this.mark.compareTo(o.getMark()) < 0) {
             result = -1;
         } else {
-            result = this.id.compareTo(sortBean.getId()) > 0 ? 1 : -1;
+            result = this.id.compareTo(o.getId()) > 0 ? 1 : -1;
         }
         return result;
     }

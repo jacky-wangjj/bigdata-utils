@@ -1,5 +1,6 @@
-package com.jacky.mr.sort;
+package com.jacky.mr.topn;
 
+import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
@@ -50,11 +51,7 @@ public class FlowBean implements WritableComparable<FlowBean> {
         this.sumFlow = sumFlow;
     }
 
-    @Override
-    public int compareTo(FlowBean o) {
-        return this.sumFlow > o.getSumFlow() ? -1 : 1;
-    }
-
+    //序列化方法
     @Override
     public void write(DataOutput output) throws IOException {
         output.writeLong(upFlow);
@@ -62,6 +59,7 @@ public class FlowBean implements WritableComparable<FlowBean> {
         output.writeLong(sumFlow);
     }
 
+    //反序列化方法
     @Override
     public void readFields(DataInput input) throws IOException {
         upFlow = input.readLong();
@@ -78,5 +76,18 @@ public class FlowBean implements WritableComparable<FlowBean> {
         this.upFlow = upFlow;
         this.downFlow = downFlow;
         this.sumFlow = upFlow + downFlow;
+    }
+
+    @Override
+    public int compareTo(FlowBean o) {
+        int result;
+        if (sumFlow > o.getSumFlow()) {
+            result = -1;
+        } else if (sumFlow < o.getSumFlow()) {
+            result = 1;
+        } else {
+            result = 0;
+        }
+        return result;
     }
 }
